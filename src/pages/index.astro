@@ -1,11 +1,32 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<MainLayout>
+	<section>
+		<h1>Olá, eu sou o Ronald Hiedley</h1>
+		<p>Desenvolvedor de Software focado em Java, Spring Boot e na construção de sistemas robustos.</p>
+		   Este é o meu espaço de documentação e evolução contínua.
+		</p>
+	</section>
+
+	<hr/>
+
+	<section class="featured-projects">
+		<h2>Constuindo agora</h2>
+		<div class="project-card">
+			<h3>TaskForge</h3>
+			<p>Um sistema de gerencialmento de tarefas robusto construindo com Java, Spring Boot e PostgreSQL.</p>
+			<a href="/projetos/">Ver todos os projetos →</a>
+		</div>
+	</section>
+
+	<hr/>
+
+	<section class="latest-projects">
+		<h2>Últimos Artigos & Reflexões</h2>
+		<p>Em breve, publicações profundas sobre tecnologias, Linux e desenvolvimento de sistemas</p>
+		<a href="/blog/">Ir para o Blog</a>
+	</section>
+
+</MainLayout>
