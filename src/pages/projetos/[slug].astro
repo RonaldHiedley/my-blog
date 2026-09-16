@@ -1,0 +1,118 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+    const projetos = await getCollection("projetos");
+
+    return projetos.map((projeto) => ({
+        params: {
+            slug: projeto.id,
+        },
+        props: {
+            projeto,
+        },
+    }));
+}
+
+const { projeto } = Astro.props;
+const { Content } = await render(projeto);
+---
+
+<MainLayout title={`${projeto.data.title} — Ronald Hiedley`}>
+    <article class="project-page">
+        <header class="project-header">
+            <p class="eyebrow">Projeto</p>
+
+            <h1>{projeto.data.title}</h1>
+
+            <p class="description">
+                {projeto.data.description}
+            </p>
+
+            <div class="meta">
+                <span>{projeto.data.status}</span>
+                <span>{projeto.data.technologies.join(" · ")}</span>
+            </div>
+        </header>
+
+        <hr />
+
+        <div class="content">
+            <Content />
+        </div>
+
+        <hr />
+
+        <a class="back-link" href="/projetos/">
+            ← Voltar para projetos
+        </a>
+    </article>
+</MainLayout>
+
+<style>
+    .project-page {
+        padding: 48px 0;
+    }
+
+    .project-header {
+        max-width: 750px;
+    }
+
+    .eyebrow {
+        margin-bottom: 16px;
+        color: var(--color-text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .project-header h1 {
+        margin-bottom: 24px;
+    }
+
+    .description {
+        max-width: 700px;
+        font-size: 1.1rem;
+    }
+
+    .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 32px;
+        color: var(--color-text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+    }
+
+    .content {
+        max-width: 700px;
+    }
+
+    .content h2 {
+        margin-top: 48px;
+    }
+
+    .content h3 {
+        margin-top: 32px;
+    }
+
+    .content ul {
+        padding-left: 24px;
+    }
+
+    .content li {
+        margin-bottom: 8px;
+    }
+
+    .content p {
+        margin-bottom: 16px;
+    }
+
+    .back-link {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+    }
+</style>

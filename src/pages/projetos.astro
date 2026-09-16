@@ -1,0 +1,112 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+const projetos = await getCollection("projetos");
+---
+
+<MainLayout title="Projetos — Ronald Hiedley">
+    <section class="page-header">
+        <p class="eyebrow">Projetos</p>
+
+        <h1>Coisas que estou construindo.</h1>
+
+        <p>
+            Projetos pessoais, experimentos e sistemas que utilizo para estudar
+            e colocar ideias em prática.
+        </p>
+    </section>
+
+    <section class="projects">
+        {
+            projetos.map((projeto) => (
+                <article class="project">
+                    <div>
+                        <p class="status">{projeto.data.status}</p>
+
+                        <h2>{projeto.data.title}</h2>
+
+                        <p>{projeto.data.description}</p>
+
+                        <p class="technologies">
+                            {projeto.data.technologies.join(" · ")}
+                        </p>
+                    </div>
+
+                    <a href={`/projetos/${projeto.id}/`}>
+                        Ver projeto →
+                    </a>
+                </article>
+            ))
+        }
+    </section>
+</MainLayout>
+
+<style>
+    .page-header {
+        padding: 48px 0 32px;
+    }
+
+    .page-header h1 {
+        max-width: 700px;
+        margin-bottom: 24px;
+    }
+
+    .page-header > p:last-child {
+        max-width: 650px;
+    }
+
+    .eyebrow,
+    .status {
+        color: var(--color-text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .projects {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 32px;
+
+        padding: 32px 0;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .project h2 {
+        margin-bottom: 12px;
+    }
+
+    .project p {
+        max-width: 650px;
+    }
+
+    .status {
+        margin-bottom: 12px;
+    }
+
+    .technologies {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+    }
+
+    .project a {
+        flex-shrink: 0;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+    }
+
+    @media (max-width: 640px) {
+        .project {
+            flex-direction: column;
+            gap: 16px;
+        }
+    }
+</style>
